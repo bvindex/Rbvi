@@ -1,2 +1,2 @@
-# ibv.github.io
-Index of Biological Value
+# bvi.github.io
+Biological Value Index
