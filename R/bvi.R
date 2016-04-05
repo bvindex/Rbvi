@@ -23,11 +23,11 @@ bvi=function(data,p=0.95, other=T){
     data=as.matrix(data)
   }
   
-  prop=prop.table(data,2) #Calculate matrix of relative abundances by sample
+  prop=prop.table(data,2)       #Calculate matrix of relative abundances by sample
   
-  ni=rowSums(data)/sum(data)#Calculate total relative abundances by species
+  ni=rowSums(data)/sum(data)    #Calculate total relative abundances by species
   
-  nsp=rep_len(0,dim(data)[2])#vector with zeros of length=number of samples
+  nsp=rep_len(0,dim(data)[2])   #vector with zeros of length=number of samples
   
   #The folowing cycle calculates the number of species (nsp) needed to reach the cutoff percentage (p)
   for (j in seq(1,dim(data)[2])){
@@ -58,30 +58,38 @@ bvi=function(data,p=0.95, other=T){
     for (i in seq(1,min(length(un)-1,nsp))){
       max_score=max(un)           #max_score contains the maximum abundance to look for during iteration i
       score_j[score==max_score]=N #The score N is assigned to species i (i.e. all those that have an abundance of max?score)
-      N=N-sum(score==max_score) #Correction for ties
-      un[un==max_score]=0 #Delete the previous values of max_score, so that the next max_score is updatet
+      N=N-sum(score==max_score)   #Correction for ties
+      un[un==max_score]=0         #Delete the previous values of max_score, so that the next max_score is updatet
     }
-    scores[,j]=score_j #Assign scores of sample j to the score matrix
+    scores[,j]=score_j            #Assign scores of sample j to the score matrix
   }
   
-  scores=unname(scores)
-  BVI=rowSums(unname(scores))
+  scores=unname(scores)           #Unname scores so that BVI does not carry with the names
+  BVI=rowSums(unname(scores))     #Calculates BVI by adding scores for each species across samples
   rBVI=BVI/sum(BVI)*100
   
+  #Build preeliminar results into a data.frame
   results_a=data.frame(rownames(data),
                      scores,
                      BVI,
-                     rBVI)
+                     rBVI,
+                     stringsAsFactors=FALSE)
   
+  #Results finalized
   results=results_a[order(-results_a[,dim(scores)[2]+2]),]
   colnames(results)=c("spp",colnames(data),"BVI","%BVI")
   
-  if(others){
+  #If toher=TRUE, adds species that do not contribute to p in a single raw
+  if(other){
     results_b=results[1:nsp,]
-    results_b[nsp+1,]=colSums(results[nsp+1:dim(results)[1]])
+    rBVI=colSums(results[(nsp+1):dim(results)[1], 2:dim(results)[2]])
+    results_b[nsp+1,2:dim(results)[2]]=rBVI
+    results_b$spp[nsp+1]="Others"
     results=results_b
+    return(results)
   }
   
+  #Return the results
   return(results)
 }
 
