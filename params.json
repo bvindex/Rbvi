@@ -1,6 +1,6 @@
 {
-  "name": "bvi",
-  "tagline": "Biological Value Index",
+  "name": "Rbvi",
+  "tagline": "Biological Value Index in R",
   "body": "## Site is under construction\r\n",
   "note": "Don't delete this file! It's used internally to help with page regeneration."
 }
