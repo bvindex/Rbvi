@@ -1,10 +1,10 @@
-Package: bvi
+Package: Rbvi
 Type: Package
 Title: The Biological Value Index
 Version: 0.1.0
 Author: Villasenor-Derbez, J.C.
 Maintainer: Who to complain to <jvillasenor@bren.ucsb.edu>
-Description: A package to calculate the Biological Value Index (Sanders,
+Description: An R package to calculate the Biological Value Index (Sanders,
     1960; Loya-Salinas & Escofet, 1990). This package also introduces a relative
     Biological Value Index (%BVI) that allows for comparissons.
 License: What license is it under?
