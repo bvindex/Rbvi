@@ -9,10 +9,12 @@ bvi(data, p = 0.95, other = T)
 \arguments{
 \item{data}{an object of class matrix or data.frame. rownames must be samples and colnames must be species (or any other taxa).}
 
-\item{p}{The cutoff percentage to use, expressed relative to 1 (i.e. for a cutoff of 95% use p = 0.95)}
+\item{p}{The cutoff percentage to use, expressed relative to 1 (i.e. for a cutoff of 95 percent use p = 0.95)}
+
+\item{other}{a logical that indicates if species that do not contribute to p should be added together ina category "other". If FALSE, they are displayed individually.}
 }
 \value{
-results An object of class data.frame containing a column with species name (spp), the scores for each species in each sample, a column (BVI) with the Biological Value Index, and a column (rBVI) with the Relative Biological Value Index.
+results An object of class data.frame containing a column with species name (spp), the scores for each species in each sample, a column (BVI) with the Biological Value Index, and a column (rBVI) with the Relative Biological Value Index. The results can be directly passed to bvi_plot to get a graphical representation.
 }
 \description{
 Calculates the Biological Value Index (Sanders, 1960) with modifications from Loya-Salina & Escofet (1990). It also provides a relative index, that allows for comparisons.
