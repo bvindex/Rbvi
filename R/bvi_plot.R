@@ -6,7 +6,10 @@
 #' 
 #' @seealso bvi
 #' 
-#'
+#' @author Villasenor-Derbez, J.C.
+#' 
+#' @export
+#' 
 bvi_plot=function(bvi_scores){
   
 }

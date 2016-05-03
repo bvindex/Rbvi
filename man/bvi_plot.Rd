@@ -12,6 +12,9 @@ bvi_plot(bvi_scores)
 \description{
 Creates a graph to graphicaly represent the score matrix of the Biological Value Index.
 }
+\author{
+Villasenor-Derbez, J.C.
+}
 \seealso{
 bvi
 }

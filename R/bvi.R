@@ -15,10 +15,12 @@
 
 bvi=function(data,p=0.95, other=T){
   
+  #Test that the cutoff percentage is between 0 and 1
   if (p>1){
     stop("Your cutoff percentage must be between 0 and 1")
   }
   
+  #Test that the data passed is a matrix, else it transforms it
   if(!is.matrix(data)){
     data=as.matrix(data)
   }
@@ -31,16 +33,18 @@ bvi=function(data,p=0.95, other=T){
   
   #The folowing cycle calculates the number of species (nsp) needed to reach the cutoff percentage (p)
   for (j in seq(1,dim(data)[2])){
-    i=1
-    nij=sort(prop[,j],decreasing=T)
-    ni_p=nij[i]
+    i=1                             #Re-set i at 1
+    nij=sort(prop[,j],decreasing=T) #Sort the column j in a decreasing order
+    ni_p=nij[i]                     #ni_p will be the cumulative relative abundance. Here it is the largest value of the sorted column
     
+    #This conditional keeps adding species' relative abundance to ni_p until the cutoff percentage p is reached
     while(ni_p<p){
-      ni_p=ni_p+nij[i+1]
-      i=i+1
+      ni_p=ni_p+nij[i+1]            #ni_p increases with the addition of every species [i+1]
+      i=i+1                         #i keeps track of the number of species that have been added to reach p
     }
-    nsp[j]=i
+    nsp[j]=i                   #For sample j, the number of species to reach p is i
   }
+  
   #Extract the maximum number of species needed and overwrite nsp
   nsp=max(nsp)
   
@@ -49,10 +53,10 @@ bvi=function(data,p=0.95, other=T){
   
   #Cycle iterates across samples (j)
   for (j in seq(1,dim(data)[2])){
-    score=unname(prop[,j])        #Extract abundances of sample j
-    un=sort(unique(score), decreasing=T)              #Extract unique vector of abundances to correct for ties
-    N=nsp                         #N has the maximum number of species needed, and is modified later in the correction for ties
-    score_j=score*0               #Set initial score_j = 0 and with size of score
+    score=unname(prop[,j])                 #Extract abundances of sample j
+    un=sort(unique(score), decreasing=T)   #Extract unique vector of abundances to correct for ties
+    N=nsp                                  #N has the maximum number of species needed, and is modified later in the correction for ties
+    score_j=score*0                        #Set initial score_j = 0 and with size of score
     
     #Cycle iterates across species (i)
     for (i in seq(1,min(length(un)-1,nsp))){
