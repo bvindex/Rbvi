@@ -10,6 +10,23 @@
 #' 
 #' @export
 #' 
+
 bvi_plot=function(bvi_scores){
+  library(ggplot2)
+  library(dplyr)
+  library(tidyr)
+  
+  total=colSums(bvi_scores[2:(length(bvi_scores)-2)])
+  total=matrix(total, nrow=length(bvi_scores)-3, ncol=length(bvi_scores$spp))
+  
+  bvi_scores[2:(length(bvi_scores)-2)]=bvi_scores[2:(length(bvi_scores)-2)]/total
+  
+  bvi_scores=bvi_scores%>%
+    select(1:(length(bvi_scores)-2))%>%
+    gather(sample, score, -1)
+  
+  ggplot(bvi_scores, aes(x=sample, y=score, fill=spp))+
+    geom_bar(stat="identity")+
+    scale_y_continuous(labels = scales::percent)
   
 }
