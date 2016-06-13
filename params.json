@@ -1,6 +1,6 @@
 {
   "name": "Rbvi",
-  "tagline": "Biological Value Index in R",
-  "body": "## Site is under construction\r\n",
+  "tagline": "An R package to calculate the Biological Value Index (Sanders, 1960)",
+  "body": "# Site is under construction\r\n",
   "note": "Don't delete this file! It's used internally to help with page regeneration."
 }
