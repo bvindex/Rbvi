@@ -25,8 +25,8 @@ bvi_plot=function(bvi_scores){
     select(1:(length(bvi_scores)-2))%>%
     gather(sample, score, -1)
   
-  ggplot(bvi_scores, aes(x=sample, y=score, fill=spp, col="black"))+
-    geom_bar(stat="identity")+
+  ggplot(bvi_scores, aes(x=sample, y=score, fill=spp))+
+    geom_bar(stat="identity", color="black")+
     scale_y_continuous(labels = scales::percent)
   
 }
