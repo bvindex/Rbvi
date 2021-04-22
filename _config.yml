@@ -1,0 +1,8 @@
+title: Rbvi
+description: An R package to calculate the Biological Value Index (Sanders, 1960)
+google_analytics: 
+show_downloads: true
+theme: jekyll-theme-cayman
+
+gems:
+  - jekyll-mentions
